@@ -38,24 +38,27 @@ namespace PhoneBook.Core
             {
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(128)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('')");
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PhoneNumber)
+                    .IsRequired()
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.PhoneBook)
                     .WithMany(p => p.Entries)
                     .HasForeignKey(d => d.PhoneBookId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Entries__PhoneBo__3B75D760");
+                    .HasConstraintName("FK__Entries__PhoneBo__48CFD27E");
             });
 
             modelBuilder.Entity<PhoneBook>(entity =>
             {
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(128)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("('')");
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);
