@@ -11,6 +11,7 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { PhonebookComponent } from './phonebook/phonebook.component';
 import { PhoneBookManagementService } from './Services/phone-book-management.service';
+import { EntryComponent } from './entry/entry.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { PhoneBookManagementService } from './Services/phone-book-management.ser
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    PhonebookComponent
+    PhonebookComponent,
+    EntryComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -31,6 +33,7 @@ import { PhoneBookManagementService } from './Services/phone-book-management.ser
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'phonebook', component: PhonebookComponent },
+      { path: 'entry/:id', component: EntryComponent },
     ])
   ],
   providers: [PhoneBookManagementService],

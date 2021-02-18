@@ -11,5 +11,6 @@ namespace PhoneBook.Logic.Services
         Task<EntryModel> Create(EntryModel entryModel);
         Task<EntryModel> Edit(EntryModel entryModel);
         Task<ResponseModel<IEnumerable<EntryModel>>> Search(string searchString);
+        Task<ResponseModel<IEnumerable<EntryModel>>> GetByPhoneBookId(int phoneBookId);
     }
 }

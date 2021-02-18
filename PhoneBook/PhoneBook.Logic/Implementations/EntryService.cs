@@ -60,6 +60,30 @@ namespace PhoneBook.Logic.Implementations
             }
         }
 
+        public async Task<ResponseModel<IEnumerable<EntryModel>>> GetByPhoneBookId(int phoneBookId)
+        {
+            try
+            {
+                using (var ctx = new PhoneBookContext())
+                {
+                    var entries = ctx.Entries.Where(x => x.PhoneBookId == phoneBookId);
+                    if (entries.Count() == 0)
+                    {
+                        return new ResponseModel<IEnumerable<EntryModel>> { ResponseMessage = Constants.RecordsNotFound, IsSuccessful = false };
+                    }
+
+                    return new ResponseModel<IEnumerable<EntryModel>>
+                    {
+                        DataSet = entries.Select(_mapper.Map<EntryModel>).ToList()
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ResponseModel<IEnumerable<EntryModel>> { ResponseMessage = Constants.UnexpectedError, IsSuccessful = false };
+            }
+        }
+
         public async Task<ResponseModel<IEnumerable<EntryModel>>> Search(string searchString)
         {
             try

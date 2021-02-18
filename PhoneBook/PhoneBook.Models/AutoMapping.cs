@@ -9,10 +9,12 @@ namespace PhoneBook.Models
         public AutoMapping()
         {
 
-            CreateMap<Entry, EntryModel>();
+         //   CreateMap<Entry, EntryModel>();
             CreateMap<Entry, EntryModel>().ReverseMap();
-            CreateMap<Core.PhoneBook, PhoneBookModel>();
-            CreateMap<Core.PhoneBook, PhoneBookModel>().ReverseMap();
+      //      CreateMap<Core.PhoneBook, PhoneBookOutputModel>();
+            CreateMap<Core.PhoneBook, PhoneBookOutputModel>().ReverseMap();
+       //     CreateMap<Core.PhoneBook, PhoneBookInputModel>();
+            CreateMap<Core.PhoneBook, PhoneBookInputModel>().ReverseMap();
 
 
         }

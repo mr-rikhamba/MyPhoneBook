@@ -18,47 +18,46 @@ namespace PhoneBook.Logic.Implementations
             _mapper = mapper;
         }
 
-        public async Task<PhoneBookModel> Create(PhoneBookModel phoneBookModel)
+        public async Task<ResponseModel<PhoneBookOutputModel>> Create(PhoneBookInputModel phoneBookModel)
         {
             try
             {
                 using (var ctx = new PhoneBookContext())
                 {
-                    var entity = _mapper.Map<PhoneBookModel, Core.PhoneBook>(phoneBookModel);
+                    var entity = _mapper.Map<PhoneBookInputModel, Core.PhoneBook>(phoneBookModel);
                     ctx.PhoneBooks.Add(entity);
                     await ctx.SaveChangesAsync();
-                    phoneBookModel.PhoneBookId = entity.PhoneBookId;
-                    return phoneBookModel;
+                    return new ResponseModel<PhoneBookOutputModel> { DataSet = _mapper.Map<Core.PhoneBook, PhoneBookOutputModel>(entity) };
                 }
             }
             catch (Exception ex)
             {
-                return new PhoneBookModel { ResponseMessage = Constants.UnexpectedError, IsSuccessful = false };
+                return new ResponseModel<PhoneBookOutputModel> { ResponseMessage = Constants.UnexpectedError, IsSuccessful = false };
             }
         }
 
-        public async Task<PhoneBookModel> Edit(PhoneBookModel phoneBookModel)
+        public async Task<ResponseModel<PhoneBookOutputModel>> Edit(int id, PhoneBookInputModel phoneBookModel)
         {
             try
             {
                 using (var ctx = new PhoneBookContext())
                 {
-                    var existingPhoneBook = ctx.PhoneBooks.FirstOrDefault(x => x.PhoneBookId == phoneBookModel.PhoneBookId);
+                    var existingPhoneBook = ctx.PhoneBooks.FirstOrDefault(x => x.PhoneBookId == id);
                     if (existingPhoneBook.Name != phoneBookModel.Name)
                     {
                         existingPhoneBook.Name = phoneBookModel.Name;
                         await ctx.SaveChangesAsync();
                     }
-                    return _mapper.Map<Core.PhoneBook, PhoneBookModel>(existingPhoneBook);
+                    return new ResponseModel<PhoneBookOutputModel> { DataSet = _mapper.Map<Core.PhoneBook, PhoneBookOutputModel>(existingPhoneBook) };
                 }
             }
             catch (Exception ex)
             {
-                return new PhoneBookModel { ResponseMessage = Constants.UnexpectedError, IsSuccessful = false };
+                return new ResponseModel<PhoneBookOutputModel> { ResponseMessage = Constants.UnexpectedError, IsSuccessful = false };
             }
         }
 
-        public PhoneBookModel GetById(int id)
+        public ResponseModel<PhoneBookOutputModel> GetById(int id)
         {
             try
             {
@@ -67,23 +66,23 @@ namespace PhoneBook.Logic.Implementations
                     var phoneBookModel = ctx.PhoneBooks.FirstOrDefault(x => x.PhoneBookId == id);
                     if (phoneBookModel == null)
                     {
-                        return new PhoneBookModel { ResponseMessage = Constants.IdNotFound, IsSuccessful = false };
+                        return new ResponseModel<PhoneBookOutputModel> { ResponseMessage = Constants.UnexpectedError, IsSuccessful = false };
                     }
-                    return _mapper.Map<Core.PhoneBook, PhoneBookModel>(phoneBookModel);
+                    return new ResponseModel<PhoneBookOutputModel> { DataSet = _mapper.Map<Core.PhoneBook, PhoneBookOutputModel>(phoneBookModel) };
                 }
             }
             catch (Exception ex)
             {
-                return new PhoneBookModel { ResponseMessage = Constants.UnexpectedError, IsSuccessful = false };
+                return new ResponseModel<PhoneBookOutputModel> { ResponseMessage = Constants.UnexpectedError, IsSuccessful = false };
             }
         }
 
-        public ResponseModel<IEnumerable<PhoneBookModel>> GetPhonebooks()
+        public ResponseModel<IEnumerable<PhoneBookOutputModel>> GetPhonebooks()
         {
             using (var ctx = new PhoneBookContext())
             {
                 var phoneBooks = ctx.PhoneBooks.ToList();
-                return new ResponseModel<IEnumerable<PhoneBookModel>> { DataSet = phoneBooks.Select(_mapper.Map<PhoneBookModel>).ToList() };
+                return new ResponseModel<IEnumerable<PhoneBookOutputModel>> { DataSet = phoneBooks.Select(_mapper.Map<PhoneBookOutputModel>).OrderBy(e=>e.Name).ToList() };
             }
         }
     }

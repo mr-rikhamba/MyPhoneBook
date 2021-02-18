@@ -34,7 +34,7 @@ namespace PhoneBook.Ui
             services.AddControllers().AddNewtonsoftJson(jsonOptions =>
             {
                 jsonOptions.SerializerSettings.ContractResolver = new DefaultContractResolver();
-                jsonOptions.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Include;
+                jsonOptions.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
             }
 
          );

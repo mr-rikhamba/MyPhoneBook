@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PhoneBook.Ui.Controllers
 {
-    public class BaseController: Controller
+    public class BaseController: ControllerBase
     {
+        [NonAction]
         public void LogException(Exception ex)
         {
 

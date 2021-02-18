@@ -36,14 +36,36 @@ export class PhonebookComponent implements OnInit {
   }
 
   addNewPhoneBook() {
-    if (this.myForm.value.Name == '') {
+    if (this.myForm.value.Name === '' || this.myForm.value.Name === null) {
       alert("Please enter a valid phonebook name.")
       return;
     }
     this.phonebookService.save(this.myForm.value).subscribe(data => {
 
       alert(data.ResponseMessage);
+      this.myForm.reset();
+      this.fetchPhonebooks();
+
+    });
+  }
+  updatePhoneBook(phoneBook: PhoneBookModel) {
+    if (phoneBook.Name === '' || phoneBook.Name === null) {
+      alert("Please enter a valid phonebook name.")
+      return;
+    }
+    this.phonebookService.update(phoneBook).subscribe(data => {
+      alert(data.ResponseMessage);
+      this.fetchPhonebooks();
     });
   }
 
+  fetchPhonebooks() {
+    this.phonebookService.getAllPhoneBooks().subscribe(data => {
+      if (data.IsSuccessful) {
+
+        this.phonebooks = data.DataSet;
+      } else {
+      }
+    })
+  }
 }

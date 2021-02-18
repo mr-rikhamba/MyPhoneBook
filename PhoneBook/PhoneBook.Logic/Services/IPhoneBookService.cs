@@ -8,9 +8,9 @@ namespace PhoneBook.Logic.Services
 {
     public interface IPhoneBookService
     {
-        Task<PhoneBookModel> Create(PhoneBookModel phoneBookModel);
-        Task<PhoneBookModel> Edit(PhoneBookModel phoneBookModel);
-        PhoneBookModel GetById(int id);
-        ResponseModel<IEnumerable<PhoneBookModel>> GetPhonebooks();
+        Task<ResponseModel<PhoneBookOutputModel>> Create(PhoneBookInputModel phoneBookModel);
+        Task<ResponseModel<PhoneBookOutputModel>> Edit(int id, PhoneBookInputModel phoneBookModel);
+        ResponseModel<PhoneBookOutputModel> GetById(int id);
+        ResponseModel<IEnumerable<PhoneBookOutputModel>> GetPhonebooks();
     }
 }

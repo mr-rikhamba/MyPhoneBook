@@ -1,28 +1,49 @@
-<p>phonebook works!</p>
-
-<table class=" table tablesorter" id="">
-    <thead class=" text-primary">
-        <tr>
-            <th>Name</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let phonebook of phonebooks">
-
-            <td>{{phonebook.Name}}</td>
-            <td><a class='btn btn-primary' [routerLink]="['/ManagePhoneBook', phonebook.PhoneBookId]">Edit</a></td>
-        </tr>
-    </tbody>
-</table>
-<form [formGroup]="myForm" (ngSubmit)="addNewPhoneBook()" >
-
-    <table class=" table tablesorter">
-        <tr>
-            <td> <input type="text" class="form-control"  formControlName="Name"  placeholder="Enter new Phonebook" /></td>
-            <td><button class='btn btn-primary' type="submit">Add</button></td>
-        </tr>
-    </table>
 
 
-</form>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Add a new Phonebook</h5>
+        <form [formGroup]="myForm" (ngSubmit)="addNewPhoneBook()">
+            <div class="row">
+                <div class="col-sm-6">
+
+                    <input type="text" class="form-control" formControlName="Name" placeholder="Enter new Phonebook" />
+                    <br />
+                </div>
+            </div>
+            <button class='btn btn-default card-link' type="reset">Reset</button>
+            <button class='btn btn-success card-link' type="submit">Save</button>
+        </form>
+    </div>
+</div>
+
+<br />
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">View and Edit Phonebooks</h5>
+
+        <table class=" table tablesorter" id="">
+            <thead class=" text-primary">
+                <tr>
+                    <th>Name</th>
+                    <th colspan="2" class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let phonebook of phonebooks">
+
+                    <td><input type="text" class="form-control" [(ngModel)]="phonebook.Name" /></td>
+                    <td>
+                        <button class='btn btn-primary' (click)="updatePhoneBook(phonebook)">Update</button>
+                    </td>
+                    <td>
+                    <td>
+                        <a class='btn btn-primary' [routerLink]="['/entry', phonebook.PhoneBookId]">View Entry</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

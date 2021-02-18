@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web.Http;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using PhoneBook.Logic.Services;
 using PhoneBook.Models;
 
 namespace PhoneBook.Ui.Controllers
 {
-    public class PhoneBookController: BaseController
+    [Route("api/[controller]")]
+    public class PhoneBookController : BaseController
     {
         private readonly IPhoneBookService _phoneBookService;
 
@@ -15,7 +17,8 @@ namespace PhoneBook.Ui.Controllers
         {
             _phoneBookService = phoneBookService;
         }
-        public ResponseModel<IEnumerable<PhoneBookModel>> GetAll()
+        [HttpGet]
+        public ResponseModel<IEnumerable<PhoneBookOutputModel>> GetAll()
         {
             try
             {
@@ -25,7 +28,7 @@ namespace PhoneBook.Ui.Controllers
             catch (Exception exception)
             {
                 LogException(exception);
-                return new ResponseModel<IEnumerable<PhoneBookModel>>
+                return new ResponseModel<IEnumerable<PhoneBookOutputModel>>
                 {
                     ResponseMessage = "An unexpected error occcurred",
                     IsSuccessful = false
@@ -34,51 +37,53 @@ namespace PhoneBook.Ui.Controllers
         }
 
         [HttpPost]
-        public async Task<ResponseModel<PhoneBookModel>> Post([FromBody] PhoneBookModel phoneBookModel)
+        public async Task<ResponseModel<PhoneBookOutputModel>> Post([FromBody]PhoneBookInputModel phoneBookModel)
         {
             try
             {
                 var phonebook = await _phoneBookService.Create(phoneBookModel);
-                return new ResponseModel<PhoneBookModel> { DataSet = phonebook};
+                return phonebook;
             }
             catch (Exception exception)
             {
                 LogException(exception);
-                return new ResponseModel<PhoneBookModel>
+                return new ResponseModel<PhoneBookOutputModel>
                 {
                     ResponseMessage = "An unexpected error occcurred",
                     IsSuccessful = false
                 };
             }
         }
-        public async Task<ResponseModel<PhoneBookModel>> Edit([FromBody] PhoneBookModel phoneBookModel)
+        [HttpPut("{id}")]
+        public async Task<ResponseModel<PhoneBookOutputModel>> Edit(int id, [FromBody] PhoneBookInputModel phoneBookModel)
         {
             try
             {
-                var phonebook = await _phoneBookService.Edit(phoneBookModel);
-                return new ResponseModel<PhoneBookModel> { DataSet = phonebook };
+                var phonebook = await _phoneBookService.Edit(id, phoneBookModel);
+                return phonebook;
             }
             catch (Exception exception)
             {
                 LogException(exception);
-                return new ResponseModel<PhoneBookModel>
+                return new ResponseModel<PhoneBookOutputModel>
                 {
                     ResponseMessage = "An unexpected error occcurred",
                     IsSuccessful = false
                 };
             }
         }
-        public ResponseModel<PhoneBookModel> GetById(int id)
+        [HttpGet("{id}")]
+        public ResponseModel<PhoneBookOutputModel> GetById(int id)
         {
             try
             {
                 var phonebook =  _phoneBookService.GetById(id);
-                return new ResponseModel<PhoneBookModel> { DataSet = phonebook };
+                return phonebook;
             }
             catch (Exception exception)
             {
                 LogException(exception);
-                return new ResponseModel<PhoneBookModel>
+                return new ResponseModel<PhoneBookOutputModel>
                 {
                     ResponseMessage = "An unexpected error occcurred",
                     IsSuccessful = false

@@ -7,6 +7,6 @@ namespace PhoneBook.Models
         public int PhoneBookId { get; set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
-        public PhoneBookModel PhoneBook { get; set; }
+        public PhoneBookOutputModel PhoneBook { get; set; }
     }
 }
