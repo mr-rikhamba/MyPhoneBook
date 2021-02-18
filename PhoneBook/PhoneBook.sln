@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Logic", "PhoneBoo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Models", "PhoneBook.Models\PhoneBook.Models.csproj", "{AB190011-6908-4584-9938-31E04EEC745C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Ui", "PhoneBook.Ui\PhoneBook.Ui.csproj", "{0D528020-7022-475D-8DA7-64EBBBD70EA3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Tests", "PhoneBook.Tests\PhoneBook.Tests.csproj", "{932F8977-E7BF-4552-8090-3E55DD68BA60}"
 EndProject
 Global
@@ -31,10 +29,6 @@ Global
 		{AB190011-6908-4584-9938-31E04EEC745C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB190011-6908-4584-9938-31E04EEC745C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB190011-6908-4584-9938-31E04EEC745C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0D528020-7022-475D-8DA7-64EBBBD70EA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D528020-7022-475D-8DA7-64EBBBD70EA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D528020-7022-475D-8DA7-64EBBBD70EA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D528020-7022-475D-8DA7-64EBBBD70EA3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{932F8977-E7BF-4552-8090-3E55DD68BA60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{932F8977-E7BF-4552-8090-3E55DD68BA60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{932F8977-E7BF-4552-8090-3E55DD68BA60}.Release|Any CPU.ActiveCfg = Release|Any CPU
