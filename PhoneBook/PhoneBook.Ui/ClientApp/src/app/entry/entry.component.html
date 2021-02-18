@@ -1,1 +1,47 @@
-<p>entry works!</p>
+
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Add a new Phonebook</h5>
+        <form [formGroup]="myForm" (ngSubmit)="addNewEntry()">
+            <div class="row">
+                <div class="col-sm-6">
+
+                    <input type="text" class="form-control" formControlName="Name" placeholder="Enter new Entry" />
+                    <input type="text" class="form-control" formControlName="PhoneNumber" placeholder="Enter new number" />
+                    <br />
+                </div>
+            </div>
+            <button class='btn btn-default card-link' type="reset">Reset</button>
+            <button class='btn btn-success card-link' type="submit">Save</button>
+        </form>
+    </div>
+</div>
+
+<br />
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">View and Edit Entries</h5>
+
+        <table class=" table tablesorter" id="">
+            <thead class=" text-primary">
+                <tr>
+                    <th>Name</th>
+                    <th colspan="2" class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let entry of entries">
+
+                    <td><input type="text" class="form-control" [(ngModel)]="entry.Name" /></td>
+                    <td>
+                        <button class='btn btn-primary' (click)="updatePhoneBook(phonebook)">Update</button>
+                    </td>
+                    <td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

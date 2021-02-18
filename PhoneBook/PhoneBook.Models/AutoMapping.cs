@@ -10,7 +10,7 @@ namespace PhoneBook.Models
         {
 
          //   CreateMap<Entry, EntryModel>();
-            CreateMap<Entry, EntryModel>().ReverseMap();
+            CreateMap<Entry, EntryOutputModel>().ReverseMap();
       //      CreateMap<Core.PhoneBook, PhoneBookOutputModel>();
             CreateMap<Core.PhoneBook, PhoneBookOutputModel>().ReverseMap();
        //     CreateMap<Core.PhoneBook, PhoneBookInputModel>();

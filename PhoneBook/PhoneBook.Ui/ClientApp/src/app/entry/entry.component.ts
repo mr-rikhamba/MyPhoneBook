@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EntryManagementService } from '../Services/entry-management.service';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-entry',
@@ -8,10 +10,59 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EntryComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) { }
+  public entries: EntryModel[];
+  myForm: FormGroup;
+  phoneBookId: number;
+  constructor(private entryService: EntryManagementService, private fb: FormBuilder, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    let id = this.route.snapshot.params.id;
+    this.phoneBookId = this.route.snapshot.params.id;
+
+
+    fetch
+    this.myForm = this.fb.group({
+      PhoneBookId: [this.phoneBookId],
+      Name: new FormControl(),
+      PhoneNumber: new FormControl()
+    });
+  }
+
+
+  addNewEntry() {
+    if (this.myForm.value.Name === '' || this.myForm.value.Name === null) {
+      alert("Please enter a valid entry name.")
+      return;
+    }
+    this.myForm.value.PhoneBookId = this.phoneBookId;
+    this.entryService.save(this.myForm.value).subscribe(data => {
+
+      alert(data.ResponseMessage);
+      this.myForm.reset();
+      this.fetchEntries();
+
+    });
+  }
+  updatePhoneNumber(entryModel: EntryModel) {
+    if (entryModel.Name === '' || entryModel.Name === null) {
+      alert("Please enter a valid entry name.")
+      return;
+    }
+    this.entryService.update(entryModel).subscribe(data => {
+      alert(data.ResponseMessage);
+      this.fetchEntries();
+    });
+  }
+
+  fetchEntries() {
+
+    this.entryService.getByPhoneBookId(this.phoneBookId).subscribe(data => {
+      if (data.IsSuccessful) {
+
+        this.entries = data.DataSet;
+      } else {
+      }
+    });
+
   }
 
 }

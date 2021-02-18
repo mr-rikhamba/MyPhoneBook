@@ -18,13 +18,13 @@ namespace PhoneBook.Tests.ServiceTests
         [Fact]
         public async void ShouldCreateEntry()
         {
-            var newEntry = await _entryService.Create(new Models.EntryModel
+            var newEntry = await _entryService.Create(new Models.EntryOutputModel
             {
                 Name = "Andrew",
                 PhoneBookId = 1,
                 PhoneNumber = "0712223333"
             });
-            Assert.True(newEntry.EntryId > 1);
+            Assert.True(newEntry.DataSet.EntryId > 1);
         }
 
         [Fact]

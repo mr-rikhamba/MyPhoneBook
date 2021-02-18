@@ -8,9 +8,9 @@ namespace PhoneBook.Logic.Services
 {
     public interface IEntryService
     {
-        Task<EntryModel> Create(EntryModel entryModel);
-        Task<EntryModel> Edit(EntryModel entryModel);
-        Task<ResponseModel<IEnumerable<EntryModel>>> Search(string searchString);
-        Task<ResponseModel<IEnumerable<EntryModel>>> GetByPhoneBookId(int phoneBookId);
+        Task<ResponseModel<EntryOutputModel>> Create(EntryInputModel entryModel);
+        Task<ResponseModel<EntryOutputModel>> Edit(int entryId, EntryInputModel entryModel);
+        Task<ResponseModel<IEnumerable<EntryOutputModel>>> Search(string searchString);
+        Task<ResponseModel<IEnumerable<EntryOutputModel>>> GetByPhoneBookId(int phoneBookId);
     }
 }
