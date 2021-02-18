@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -32,7 +33,7 @@ namespace PhoneBook.Logic.Implementations
             }
             catch (Exception ex)
             {
-                return new PhoneBookModel { ErrorMessage = Constants.UnexpectedError, IsSuccessful = false };
+                return new PhoneBookModel { ResponseMessage = Constants.UnexpectedError, IsSuccessful = false };
             }
         }
 
@@ -53,7 +54,7 @@ namespace PhoneBook.Logic.Implementations
             }
             catch (Exception ex)
             {
-                return new PhoneBookModel { ErrorMessage = Constants.UnexpectedError, IsSuccessful = false };
+                return new PhoneBookModel { ResponseMessage = Constants.UnexpectedError, IsSuccessful = false };
             }
         }
 
@@ -64,16 +65,25 @@ namespace PhoneBook.Logic.Implementations
                 using (var ctx = new PhoneBookContext())
                 {
                     var phoneBookModel = ctx.PhoneBooks.FirstOrDefault(x => x.PhoneBookId == id);
-                    if (phoneBookModel== null)
+                    if (phoneBookModel == null)
                     {
-                        return new PhoneBookModel { ErrorMessage = Constants.IdNotFound, IsSuccessful = false };
+                        return new PhoneBookModel { ResponseMessage = Constants.IdNotFound, IsSuccessful = false };
                     }
                     return _mapper.Map<Core.PhoneBook, PhoneBookModel>(phoneBookModel);
                 }
             }
             catch (Exception ex)
             {
-                return new PhoneBookModel { ErrorMessage = Constants.UnexpectedError, IsSuccessful = false };
+                return new PhoneBookModel { ResponseMessage = Constants.UnexpectedError, IsSuccessful = false };
+            }
+        }
+
+        public ResponseModel<IEnumerable<PhoneBookModel>> GetPhonebooks()
+        {
+            using (var ctx = new PhoneBookContext())
+            {
+                var phoneBooks = ctx.PhoneBooks.ToList();
+                return new ResponseModel<IEnumerable<PhoneBookModel>> { DataSet = phoneBooks.Select(_mapper.Map<PhoneBookModel>).ToList() };
             }
         }
     }

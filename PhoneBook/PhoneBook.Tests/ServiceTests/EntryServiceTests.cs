@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using PhoneBook.Logic.Services;
 using Xunit;
 
@@ -30,7 +31,7 @@ namespace PhoneBook.Tests.ServiceTests
         public async void ShouldSearchEntries()
         {
             var entryCollection = await _entryService.Search("2022");
-            Assert.True(entryCollection.Entries.Count > 1);
+            Assert.True(entryCollection.DataSet.Count() > 1);
         }
     }
 }

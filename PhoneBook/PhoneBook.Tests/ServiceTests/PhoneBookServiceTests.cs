@@ -16,7 +16,7 @@ namespace PhoneBook.Tests.ServiceTests
         [Fact]
         public async void ShouldCreatePhoneBook()
         {
-            var newPhoneBook = await _phoneBookService.Create(new Models.PhoneBookModel { Name = "PhoneBook1" });
+            var newPhoneBook = await _phoneBookService.Create(new Models.PhoneBookModel { Name = "PhoneBook 3" });
             Assert.True(newPhoneBook.IsSuccessful);
         }
 

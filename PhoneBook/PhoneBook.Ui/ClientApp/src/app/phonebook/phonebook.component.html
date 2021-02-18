@@ -1,0 +1,28 @@
+<p>phonebook works!</p>
+
+<table class=" table tablesorter" id="">
+    <thead class=" text-primary">
+        <tr>
+            <th>Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let phonebook of phonebooks">
+
+            <td>{{phonebook.Name}}</td>
+            <td><a class='btn btn-primary' [routerLink]="['/ManagePhoneBook', phonebook.PhoneBookId]">Edit</a></td>
+        </tr>
+    </tbody>
+</table>
+<form [formGroup]="myForm" (ngSubmit)="addNewPhoneBook()" >
+
+    <table class=" table tablesorter">
+        <tr>
+            <td> <input type="text" class="form-control"  formControlName="Name"  placeholder="Enter new Phonebook" /></td>
+            <td><button class='btn btn-primary' type="submit">Add</button></td>
+        </tr>
+    </table>
+
+
+</form>

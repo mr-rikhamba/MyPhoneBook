@@ -33,7 +33,7 @@ namespace PhoneBook.Logic.Implementations
             }
             catch (Exception ex)
             {
-                return new EntryModel { ErrorMessage = Constants.UnexpectedError, IsSuccessful = false };
+                return new EntryModel { ResponseMessage = Constants.UnexpectedError, IsSuccessful = false };
             }
         }
 
@@ -56,31 +56,31 @@ namespace PhoneBook.Logic.Implementations
             }
             catch (Exception ex)
             {
-                return new EntryModel { ErrorMessage = Constants.UnexpectedError, IsSuccessful = false };
+                return new EntryModel { ResponseMessage = Constants.UnexpectedError, IsSuccessful = false };
             }
         }
 
-        public async Task<EntryCollectionModel> Search(string searchString)
+        public async Task<ResponseModel<IEnumerable<EntryModel>>> Search(string searchString)
         {
             try
             {
                 using (var ctx = new PhoneBookContext())
                 {
-                    var phoneBooks = ctx.Entries.Where(x => x.Name.ToLower().Contains(searchString) || x.PhoneNumber.ToLower().Contains(searchString));
-                    if (phoneBooks.Count() == 0)
+                    var entries = ctx.Entries.Where(x => x.Name.ToLower().Contains(searchString) || x.PhoneNumber.ToLower().Contains(searchString));
+                    if (entries.Count() == 0)
                     {
-                        return new EntryCollectionModel { ErrorMessage = Constants.RecordsNotFound, IsSuccessful = false };
+                        return new ResponseModel<IEnumerable<EntryModel>> { ResponseMessage = Constants.RecordsNotFound, IsSuccessful = false };
                     }
 
-                    return new EntryCollectionModel
+                    return new ResponseModel<IEnumerable<EntryModel>>
                     {
-                        Entries = phoneBooks.Select(_mapper.Map<EntryModel>).ToList()
+                        DataSet = entries.Select(_mapper.Map<EntryModel>).ToList()
                     };
                 }
             }
             catch (Exception ex)
             {
-                return new EntryCollectionModel { ErrorMessage = Constants.UnexpectedError, IsSuccessful = false };
+                return new ResponseModel<IEnumerable<EntryModel>> { ResponseMessage = Constants.UnexpectedError, IsSuccessful = false };
             }
         }
     }
