@@ -8,7 +8,7 @@
                 <div class="col-sm-6">
 
                     <input type="text" class="form-control" formControlName="Name" placeholder="Enter new Phonebook" required/>
-                    <span *ngIf="myForm.controls['Name'].invalid" class="red-text">Name is required.</span>
+                    <span *ngIf="myForm.controls['Name'].touched && myForm.controls['Name'].invalid" class="red-text">Name is required.</span>
                     <br />
                 </div>
             </div>

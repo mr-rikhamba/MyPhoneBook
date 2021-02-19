@@ -22,8 +22,8 @@ export class EntryComponent implements OnInit {
     this.fetchEntries();
     this.myForm = this.fb.group({
       PhoneBookId: [this.phoneBookId],
-      Name: new FormControl(),
-      PhoneNumber: new FormControl()
+      Name: ['', Validators.required],
+      PhoneNumber: ['', Validators.required]
     });
   }
 

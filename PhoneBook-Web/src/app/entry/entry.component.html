@@ -2,16 +2,16 @@
 
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Add a new Phonebook</h5>
+        <h5 class="card-title">Add a new Entry</h5>
         <form [formGroup]="myForm" (ngSubmit)="addNewEntry()">
             <div class="row">
                 <div class="col-sm-6">
 
                     <input type="text" class="form-control" formControlName="Name" placeholder="Enter new Entry" />
-                    <span *ngIf="myForm.controls['Name'].invalid" class="red-text">Name is required.</span>
+                    <span *ngIf="myForm.controls['Name'].touched && myForm.controls['Name'].invalid" class="red-text">Name is required.</span>
                     <br />
                     <input type="text" class="form-control" formControlName="PhoneNumber" placeholder="Enter new number" />
-                    <span *ngIf="myForm.controls['PhoneNumber'].invalid" class="red-text">Phone Number is required.</span>
+                    <span *ngIf="myForm.controls['PhoneNumber'].touched && myForm.controls['PhoneNumber'].invalid" class="red-text">Phone Number is required.</span>
              
                     <br />
                 </div>
