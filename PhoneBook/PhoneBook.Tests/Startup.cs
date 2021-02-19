@@ -14,8 +14,8 @@ namespace PhoneBook.Tests
         {
             services.AddAutoMapper(c => c.AddProfile<AutoMapping>(), typeof(Startup));
             services.AddDbContext<PhoneBookContext>(options => options.UseSqlServer("Data Source=156.38.224.15;Initial Catalog=atlaspro_phonebook;Persist Security Info=True;User ID=atlaspro_tempAssessmentUser;Password=G2m0l7z*"));
-            services.AddSingleton<IPhoneBookService, PhoneBookService>();
-            services.AddSingleton<IEntryService, EntryService>();
+            services.AddScoped<IPhoneBookService, PhoneBookService>();
+            services.AddScoped<IEntryService, EntryService>();
         }
     }
 }

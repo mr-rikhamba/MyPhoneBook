@@ -29,10 +29,7 @@ import { EntryComponent } from './entry/entry.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'phonebook', component: PhonebookComponent },
+      { path: '', component: PhonebookComponent, pathMatch: 'full' },
       { path: 'entry/:id', component: EntryComponent },
     ])
   ],

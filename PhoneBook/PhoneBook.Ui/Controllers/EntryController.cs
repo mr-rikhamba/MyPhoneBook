@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using PhoneBook.Logic.Services;
 using PhoneBook.Models;
 
@@ -13,10 +14,12 @@ namespace PhoneBook.Ui.Controllers
     public class EntryController : BaseController
     {
         private readonly IEntryService _entryService;
+        private ILogger<EntryController> _logger;
 
-        public EntryController(IEntryService entryService)
+        public EntryController(IEntryService entryService, ILogger<EntryController> logger)
         {
             _entryService = entryService;
+            _logger = logger;
         }
 
 
@@ -25,12 +28,25 @@ namespace PhoneBook.Ui.Controllers
         {
             try
             {
-                var phonebook = await _entryService.Create(entryInputModel);
-                return phonebook;
+                if (ModelState.IsValid)
+                {
+
+                    _logger.LogInformation($"Creating new entry {entryInputModel.Name}");
+                    var phonebook = await _entryService.Create(entryInputModel);
+                    return phonebook;
+                }
+                else
+                {
+                    return new ResponseModel<EntryOutputModel>
+                    {
+                        IsSuccessful = false,
+                        ResponseMessage = "Please make sure you have entered the correct details."
+                    };
+                }
             }
             catch (Exception exception)
             {
-                LogException(exception);
+                _logger.LogError($"An exception occurred: {exception.ToString()}");
                 return new ResponseModel<EntryOutputModel>
                 {
                     ResponseMessage = "An unexpected error occcurred",
@@ -43,12 +59,24 @@ namespace PhoneBook.Ui.Controllers
         {
             try
             {
-                var phonebook = await _entryService.Edit(id, entryInputModel);
-                return phonebook;
+                if (ModelState.IsValid)
+                {
+                    _logger.LogInformation($"Updating entry: {entryInputModel}");
+                    var phonebook = await _entryService.Edit(id, entryInputModel);
+                    return phonebook;
+                }
+                else
+                {
+                    return new ResponseModel<EntryOutputModel>
+                    {
+                        IsSuccessful = false,
+                        ResponseMessage = "Please make sure you have entered the correct details."
+                    };
+                }
             }
             catch (Exception exception)
             {
-                LogException(exception);
+                _logger.LogError($"An exception occurred: {exception.ToString()}");
                 return new ResponseModel<EntryOutputModel>
                 {
                     ResponseMessage = "An unexpected error occcurred",
@@ -61,12 +89,13 @@ namespace PhoneBook.Ui.Controllers
         {
             try
             {
+                _logger.LogInformation($"Fetching entries by phonebook id: {phoneBookId}");
                 var entries = await _entryService.GetByPhoneBookId(phoneBookId);
                 return entries;
             }
             catch (Exception exception)
             {
-                LogException(exception);
+                _logger.LogError($"An exception occurred: {exception.ToString()}");
                 return new ResponseModel<IEnumerable<EntryOutputModel>>
                 {
 

@@ -29,10 +29,7 @@ export class EntryComponent implements OnInit {
 
 
   addNewEntry() {
-    if (this.myForm.value.Name === '' || this.myForm.value.Name === null) {
-      alert("Please enter a valid entry name.")
-      return;
-    }
+  
     this.myForm.value.PhoneBookId = this.phoneBookId;
     this.entryService.save(this.myForm.value).subscribe(data => {
 

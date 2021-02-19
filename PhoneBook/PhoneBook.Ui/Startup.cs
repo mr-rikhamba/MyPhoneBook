@@ -29,8 +29,8 @@ namespace PhoneBook.Ui
             var connectionString = Configuration.GetConnectionString("PhoneBookContext");
             services.AddAutoMapper(c => c.AddProfile<AutoMapping>(), typeof(Startup));
             services.AddDbContext<PhoneBookContext>(options => options.UseSqlServer(connectionString));
-            services.AddSingleton<IPhoneBookService, PhoneBookService>();
-            services.AddSingleton<IEntryService, EntryService>();
+            services.AddScoped<IPhoneBookService, PhoneBookService>();
+            services.AddScoped<IEntryService, EntryService>();
             services.AddControllers().AddNewtonsoftJson(jsonOptions =>
             {
                 jsonOptions.SerializerSettings.ContractResolver = new DefaultContractResolver();
