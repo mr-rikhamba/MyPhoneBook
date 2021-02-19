@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using PhoneBook.Core;
 using PhoneBook.Logic.Services;
 using PhoneBook.Models;
@@ -81,7 +82,7 @@ namespace PhoneBook.Logic.Implementations
         {
             using (var ctx = new PhoneBookContext())
             {
-                var phoneBooks = ctx.PhoneBooks.ToList();
+                var phoneBooks = ctx.PhoneBooks.Include(c=> c.Entries).ToList();
                 return new ResponseModel<IEnumerable<PhoneBookOutputModel>> { DataSet = phoneBooks.Select(_mapper.Map<PhoneBookOutputModel>).OrderBy(e=>e.Name).ToList() };
             }
         }

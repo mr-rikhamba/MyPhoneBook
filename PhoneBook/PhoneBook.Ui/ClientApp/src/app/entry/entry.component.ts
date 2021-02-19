@@ -19,7 +19,7 @@ export class EntryComponent implements OnInit {
     this.phoneBookId = this.route.snapshot.params.id;
 
 
-    fetch
+    this.fetchEntries();
     this.myForm = this.fb.group({
       PhoneBookId: [this.phoneBookId],
       Name: new FormControl(),
@@ -42,7 +42,7 @@ export class EntryComponent implements OnInit {
 
     });
   }
-  updatePhoneNumber(entryModel: EntryModel) {
+  updateEntry(entryModel: EntryModel) {
     if (entryModel.Name === '' || entryModel.Name === null) {
       alert("Please enter a valid entry name.")
       return;

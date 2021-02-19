@@ -8,5 +8,6 @@ namespace PhoneBook.Models
     public class PhoneBookInputModel
     {
         public string Name { get; set; }
+        public int EntriesCount { get; set; }
     }
 }

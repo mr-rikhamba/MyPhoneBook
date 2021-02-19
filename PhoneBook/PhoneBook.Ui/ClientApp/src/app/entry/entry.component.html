@@ -28,15 +28,18 @@
             <thead class=" text-primary">
                 <tr>
                     <th>Name</th>
+                    <th>Phone Number</th>
                     <th colspan="2" class="text-center">Action</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let entry of entries">
 
                     <td><input type="text" class="form-control" [(ngModel)]="entry.Name" /></td>
+                    <td><input type="number" class="form-control" [(ngModel)]="entry.PhoneNumber" /></td>
                     <td>
-                        <button class='btn btn-primary' (click)="updatePhoneBook(phonebook)">Update</button>
+                        <button class='btn btn-primary' (click)="updateEntry(entry)">Update</button>
                     </td>
                     <td>
                 </tr>

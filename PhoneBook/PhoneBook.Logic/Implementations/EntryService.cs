@@ -73,7 +73,7 @@ namespace PhoneBook.Logic.Implementations
 
                     return new ResponseModel<IEnumerable<EntryOutputModel>>
                     {
-                        DataSet = entries.Select(_mapper.Map<EntryOutputModel>).ToList()
+                        DataSet = entries.Select(_mapper.Map<EntryOutputModel>).OrderBy(w=>w.Name).ToList()
                     };
                 }
             }

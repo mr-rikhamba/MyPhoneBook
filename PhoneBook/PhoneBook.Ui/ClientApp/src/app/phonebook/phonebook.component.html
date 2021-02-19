@@ -27,19 +27,22 @@
             <thead class=" text-primary">
                 <tr>
                     <th>Name</th>
+                    <th>No. Entries</th>
                     <th colspan="2" class="text-center">Action</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let phonebook of phonebooks">
 
                     <td><input type="text" class="form-control" [(ngModel)]="phonebook.Name" /></td>
+                    <td><a [routerLink]="['/entry', phonebook.PhoneBookId]">{{phonebook.EntriesCount}}</a></td>
                     <td>
                         <button class='btn btn-primary' (click)="updatePhoneBook(phonebook)">Update</button>
                     </td>
                     <td>
                     <td>
-                        <a class='btn btn-primary' [routerLink]="['/entry', phonebook.PhoneBookId]">View Entry</a>
+                        <a class='btn btn-primary' [routerLink]="['/entry', phonebook.PhoneBookId]">Manage Entries</a>
                     </td>
                 </tr>
             </tbody>
