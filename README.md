@@ -1,7 +1,7 @@
 # MyPhoneBook
 Phonebook application for ABSA assessment.
 
-###Technologies:
+### Technologies:
 - Angular 8
 - EF Core
 - SQL
@@ -10,5 +10,5 @@ Phonebook application for ABSA assessment.
 - xUnit tests
 - Dependency Injection
 
-###Database Access
+### Database Access
 - Using a temporary cloud db which will be removed in a couple of weeks.
