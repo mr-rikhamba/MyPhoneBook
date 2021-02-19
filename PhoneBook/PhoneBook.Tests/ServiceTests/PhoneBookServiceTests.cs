@@ -16,7 +16,7 @@ namespace PhoneBook.Tests.ServiceTests
         [Fact]
         public async void ShouldCreatePhoneBook()
         {
-            var newPhoneBook = await _phoneBookService.Create(new Models.PhoneBookModel { Name = "PhoneBook 3" });
+            var newPhoneBook = await _phoneBookService.Create(new Models.PhoneBookInputModel { Name = "PhoneBook 3" });
             Assert.True(newPhoneBook.IsSuccessful);
         }
 
@@ -24,21 +24,21 @@ namespace PhoneBook.Tests.ServiceTests
         public void ShouldGetAPhoneBook()
         {
             var newPhoneBook = _phoneBookService.GetById(1);
-            Assert.Equal(1, newPhoneBook.PhoneBookId);
+            Assert.Equal(1, newPhoneBook.DataSet.PhoneBookId);
+            Assert.True(newPhoneBook.DataSet.EntriesCount > 0);
         }
 
         [Theory]
-        [InlineData("2021 Phonebook")]
-        [InlineData("2022 Phonebook")]
-        [InlineData("2023 Phonebook")]
-        [InlineData("")]
-        public async  void ShouldEditPhoneBook(string newPhoneName)
+        [InlineData(1,"2021 Phonebook")]
+        [InlineData(2, "2022 Phonebook")]
+        public async  void ShouldEditPhoneBook(int phoneBookId, string newPhoneName)
         {
             var phoneBookName = newPhoneName;
-            var existingPhoneBook = _phoneBookService.GetById(1);
-            existingPhoneBook.Name = phoneBookName;
-            var updatedPhonebook = await _phoneBookService.Edit(existingPhoneBook);
-            Assert.Equal(phoneBookName, updatedPhonebook.Name);
+            var existingPhoneBook = _phoneBookService.GetById(phoneBookId);
+            var updatedPhonebook = await _phoneBookService.Edit(existingPhoneBook.DataSet.PhoneBookId, new Models.PhoneBookInputModel {
+            Name = phoneBookName
+            });
+            Assert.Equal(phoneBookName, updatedPhonebook.DataSet.Name);
         }
     }
 }

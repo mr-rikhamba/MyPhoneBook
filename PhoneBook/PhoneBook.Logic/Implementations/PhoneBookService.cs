@@ -64,7 +64,7 @@ namespace PhoneBook.Logic.Implementations
             {
                 using (var ctx = new PhoneBookContext())
                 {
-                    var phoneBookModel = ctx.PhoneBooks.FirstOrDefault(x => x.PhoneBookId == id);
+                    var phoneBookModel = ctx.PhoneBooks.Include(c=>c.Entries).FirstOrDefault(x => x.PhoneBookId == id);
                     if (phoneBookModel == null)
                     {
                         return new ResponseModel<PhoneBookOutputModel> { ResponseMessage = Constants.UnexpectedError, IsSuccessful = false };
