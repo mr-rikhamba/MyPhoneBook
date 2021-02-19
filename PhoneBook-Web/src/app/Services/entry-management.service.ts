@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EntryManagementService {
-  _baseURL: string = 'api/Entry'
+  _baseURL: string = `${environment.baseURL}/Entry`
   constructor(private http: HttpClient) { }
 
   getByPhoneBookId(id: number) {

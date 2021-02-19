@@ -7,12 +7,13 @@
             <div class="row">
                 <div class="col-sm-6">
 
-                    <input type="text" class="form-control" formControlName="Name" placeholder="Enter new Phonebook" />
+                    <input type="text" class="form-control" formControlName="Name" placeholder="Enter new Phonebook" required/>
+                    <span *ngIf="myForm.controls['Name'].invalid" class="red-text">Name is required.</span>
                     <br />
                 </div>
             </div>
             <button class='btn btn-default card-link' type="reset">Reset</button>
-            <button class='btn btn-success card-link' type="submit">Save</button>
+            <button [disabled]="myForm.pristine || myForm.invalid" class='btn btn-success card-link' type="submit">Save</button>
         </form>
     </div>
 </div>
